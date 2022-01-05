@@ -1,5 +1,5 @@
 using Microsoft.OpenApi.Models;
-using API.Data;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
