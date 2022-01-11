@@ -1,3 +1,6 @@
 obj
 bin
 appsettings.json
+/.vs/skinet/DesignTimeBuild
+/.vs/skinet/v17
+/.vs/skinet/project-colors.json
