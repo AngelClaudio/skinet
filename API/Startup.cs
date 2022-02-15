@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Core.Interfaces;
 
 namespace API
 {
@@ -16,7 +17,13 @@ namespace API
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      //Ordering of services doesn't matter.
+
+      //Note: AddSingleton ServiceLifeTime is Singelton (Application).
+      services.AddScoped<IProductRepository, ProductRepository>();
       services.AddControllers();
+
+      //ServiceLifetime of AddDbContext is Scoped (Request/action/activity)
       services.AddDbContext<StoreContext>(x =>
         x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
 
@@ -29,6 +36,7 @@ namespace API
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      //Ordering of middleware in the Configure method is important.
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
